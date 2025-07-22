@@ -1,27 +1,51 @@
 class Planet:
-    """Represents a planet in Terminal Solar System."""
+    """Represents a planet."""
 
     def __init__(
         self,
-        size,
+        radius,
         orbit_radius,
         period,
-        symbol="#",
+        symbol="*",
+        line_width=1,
         color="white",
+        x=0,
+        y=0,
+        z=0,
     ):
         """Initialises new Planet.
 
         Args:
-            size (int): Width in characters of the planet
-            orbit_radius (int): Orbit radius in characters of the planet
-            period (int): Frames needed for complete orbit
-            symbol (str, optional): Symbol used to draw the planet.
-                Defaults to "#".
-            color (str, optional): Color used to draw the planet.
+            radius (int): Width in characters of the Planet.
+            orbit_radius (int): Orbit radius in characters of the Planet.
+            period (int): Updates needed for complete orbit.
+            symbol (str, optional): Symbol used to draw the Planet.
+                Defaults to "*".
+            line_width (int, optional): Width of drawn Planet border.
+                Defaults to 1.
+            color (str, optional): Color used to draw the Planet.
                 Defaults to "white".
+            x (float): x-coordinate of the Planet's center.
+                Defaults to 0.
+            y (float): y-coordinate of the Planet's center.
+                Defaults to 0.
+            z (float): z-coordinate of the Planet's center.
+                Defaults to 0.
         """
-        self.size = size
+        self.radius = radius
         self.orbit_radius = orbit_radius
         self.period = period
         self.symbol = symbol
+        self.line_width = line_width
         self.color = color
+        self.x = x
+        self.y = y
+        self.z = z
+
+    def update(self):
+        """Updates the planet when called to calculate new position.
+        Should be called once per frame.
+        """
+        # TODO: implement functionality
+        return
+
