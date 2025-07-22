@@ -49,3 +49,34 @@ class Planet:
         # TODO: implement functionality
         return
 
+
+class Sun(Planet):
+    """Subclass of Planet representing a sun.
+    This is what other planets orbit around."""
+
+    def __init__(
+        self,
+        radius,
+        symbol="*",
+        line_width=3,
+        color="white",
+    ):
+        """Initialises new Sun.
+
+        Args:
+            radius (int): Width in characters of the Sun.
+            symbol (str, optional): Symbol used to draw the Sun.
+                Defaults to "*".
+            line_width (int, optional): Width of drawn Sun border.
+                Defaults to 3.
+            color (str, optional): Color used to draw the Sun.
+                Defaults to "white".
+        """
+        super().__init__(
+            radius,
+            0,
+            0,
+            symbol,
+            line_width,
+            color,
+        )
