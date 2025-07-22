@@ -1,3 +1,7 @@
+from config import FPS
+from utils import polar_to_cartesian
+
+
 class Planet:
     """Represents a planet."""
 
@@ -6,6 +10,7 @@ class Planet:
         radius,
         orbit_radius,
         period,
+        angle=0.0,
         symbol="*",
         line_width=1,
         color="white",
@@ -18,7 +23,8 @@ class Planet:
         Args:
             radius (int): Width in characters of the Planet.
             orbit_radius (int): Orbit radius in characters of the Planet.
-            period (int): Updates needed for complete orbit.
+            period (float): Seconds needed for complete orbit.
+            angle (float): Angle of revolution in radians.
             symbol (str, optional): Symbol used to draw the Planet.
                 Defaults to "*".
             line_width (int, optional): Width of drawn Planet border.
@@ -35,6 +41,7 @@ class Planet:
         self.radius = radius
         self.orbit_radius = orbit_radius
         self.period = period
+        self.angle = angle
         self.symbol = symbol
         self.line_width = line_width
         self.color = color

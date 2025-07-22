@@ -1,1 +1,2 @@
 TERMINAL_X_SCALE = 2.2
+FPS = 10
