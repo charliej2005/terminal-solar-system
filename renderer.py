@@ -1,5 +1,6 @@
 import math
 from config import TERMINAL_X_SCALE
+from planets import Planet, Sun
 
 
 def render_frame(width, height):
@@ -10,26 +11,32 @@ def render_frame(width, height):
         height (int): Screen height.
 
     Returns:
-        _type_: _description_
+        str: Buffer contents rendered to a string.
     """
     buffer = [[' ' for _ in range(width)] for _ in range(height)]
     center_x = width // 2
     center_y = height // 2
+    sun = Sun(10, '@')
+    planet = Planet(3, 0, 0, symbol='!')
     # Example:
-    render_circle(buffer, center_x, center_y, 10, 3)
+    render_planet(buffer, planet, center_x + 15, center_y + 15)
+    render_planet(buffer, sun, center_x, center_y)
     return "\n".join("".join(row) for row in buffer)
 
 
-def render_circle(buffer, center_x, center_y, radius, line_width):
-    # TODO: Adjust logic to render a planet, not just a generic circle
-    """Writes a circle to the buffer for rendering.
+def render_planet(
+        buffer,
+        planet,
+        center_x,
+        center_y,
+):
+    """Writes a planet to the buffer for rendering.
 
     Args:
         buffer (list[list[str]]): Buffer to write to.
+        planet (Planet): The planet being drawn.
         center_x (int): Center x-coordinate of the buffer.
         center_y (int): Center y-coordinate of the buffer.
-        radius (int): Radius of the circle.
-        line_width (int): Width of the circle's border.
     """
     height = len(buffer)
     width = len(buffer[0])
@@ -41,7 +48,7 @@ def render_circle(buffer, center_x, center_y, radius, line_width):
                 dx ** 2 + dy ** 2
             )
             if (
-                dist > radius - line_width / 2
-                and dist < radius + line_width / 2
+                dist > planet.radius - planet.line_width / 2
+                and dist < planet.radius + planet.line_width / 2
             ):
-                buffer[yi][xi] = '*'
+                buffer[yi][xi] = planet.symbol
