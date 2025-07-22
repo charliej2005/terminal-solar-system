@@ -1,0 +1,1 @@
+TERMINAL_X_SCALE = 2.2
