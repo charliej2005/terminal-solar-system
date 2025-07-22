@@ -1,5 +1,5 @@
 import unittest
-from planets import Planet
+from terminal_solar_system.planets import Planet
 
 
 class TestPlanet(unittest.TestCase):

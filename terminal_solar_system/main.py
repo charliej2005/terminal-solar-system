@@ -1,4 +1,3 @@
-from rich import print
 from rich.console import Console
 from rich.live import Live
 from time import sleep
