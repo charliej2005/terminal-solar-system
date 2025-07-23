@@ -16,7 +16,8 @@ def render_frame(planets, width, height):
     buffer = [[' ' for _ in range(width)] for _ in range(height)]
     center_x = width // 2
     center_y = height // 2
-    for planet in planets:
+    sorted_planets = sorted(planets, key=lambda planet: planet.z)
+    for planet in sorted_planets:
         render_planet(buffer, planet, center_x + planet.x, center_y + planet.y)
     return "\n".join("".join(row) for row in buffer)
 
@@ -55,10 +56,13 @@ def render_planet(
                 buffer[yi][xi] = planet.symbol
                 pixel_written = True
 
+            if dist < inner_radius:
+                buffer[yi][xi] = ' '
+
             if dist < min_dist:
                 min_dist = dist
                 min_coords = (yi, xi)
-                
+
     if not pixel_written:
         yi, xi = min_coords
         buffer[yi][xi] = planet.symbol

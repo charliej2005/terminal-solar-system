@@ -13,8 +13,9 @@ def main():
     console = Console()
     planets = []
     planets.append(Sun(10))
-    planets.append(Planet(3, 30, 1, symbol='!'))
+    planets.append(Planet(3, 40, 1, symbol='!'))
     planets.append(Planet(1, 50, 0.7, symbol='?'))
+    planets.append(Planet(0.5, 70, 0.4, symbol='#'))
     with Live("", refresh_per_second=FPS, console=console) as live:
         while True:
             for planet in planets:
