@@ -1,5 +1,7 @@
 import math
-from config import TERMINAL_X_SCALE, DEPTH_OF_FIELD_MODIFIER
+
+from terminal_solar_system.config import TERMINAL_X_SCALE
+from terminal_solar_system.config import DEPTH_OF_FIELD_MODIFIER
 
 
 def render_frame(planets, width, height):

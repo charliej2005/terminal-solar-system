@@ -1,6 +1,7 @@
-from config import FPS
-from utils import polar_to_cartesian
 import math
+
+from terminal_solar_system.config import FPS
+from terminal_solar_system.utils import polar_to_cartesian
 
 
 class Planet:

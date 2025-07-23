@@ -1,10 +1,12 @@
+import shutil
+from time import sleep
+
 from rich.console import Console
 from rich.live import Live
-from time import sleep
-from renderer import render_frame
-import shutil
-from config import FPS
-from planets import Planet, Sun
+
+from terminal_solar_system.config import FPS
+from terminal_solar_system.planets import Planet, Sun
+from terminal_solar_system.renderer import render_frame
 
 
 def main():
