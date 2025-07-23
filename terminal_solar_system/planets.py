@@ -13,7 +13,7 @@ class Planet:
         radius: float,
         orbit_radius: float,
         period: float,
-        angle: float = random.uniform(0, 2 * math.pi),
+        angle: float = None,
         inclination: float = 0.0,
         symbol: str = "*",
         line_width: float = 1,
@@ -48,6 +48,8 @@ class Planet:
         self.radius = radius
         self.orbit_radius = orbit_radius
         self.period = period
+        if angle is None:
+            angle = random.uniform(0, 2 * math.pi)
         self.angle = angle
         self.inclination = inclination
         self.symbol = symbol
