@@ -1,12 +1,12 @@
 import math
 from config import TERMINAL_X_SCALE
-from planets import Planet, Sun
 
 
-def render_frame(width, height):
+def render_frame(planets, width, height):
     """Returns a rendered frame to be printed.
 
     Args:
+        planets (list[Planet]): List of planets to be drawn.
         width (int): Screen width.
         height (int): Screen height.
 
@@ -16,11 +16,8 @@ def render_frame(width, height):
     buffer = [[' ' for _ in range(width)] for _ in range(height)]
     center_x = width // 2
     center_y = height // 2
-    sun = Sun(10, '@')
-    planet = Planet(3, 0, 0, symbol='!')
-    # Example:
-    render_planet(buffer, planet, center_x + 15, center_y + 15)
-    render_planet(buffer, sun, center_x, center_y)
+    for planet in planets:
+        render_planet(buffer, planet, center_x + planet.x, center_y + planet.y)
     return "\n".join("".join(row) for row in buffer)
 
 

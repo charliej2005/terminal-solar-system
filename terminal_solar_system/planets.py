@@ -1,5 +1,6 @@
 from config import FPS
 from utils import polar_to_cartesian
+import math
 
 
 class Planet:
@@ -54,7 +55,21 @@ class Planet:
         Should be called once per frame.
         """
         # TODO: implement functionality
+        if self.period == 0:
+            return
+        dt = 1 / FPS
+        self.angle = (self.angle + (dt / self.period) * 2) % (2 * math.pi)
+        self.x, self.z = polar_to_cartesian(self.orbit_radius, self.angle)
+        print(self)
         return
+
+    def __str__(self):
+        return (
+            f"r: {self.radius}, r_o: {self.orbit_radius}, T: {self.period}, "
+            f"θ: {self.angle}, symbol: {self.symbol}, "
+            f"line_width: {self.line_width}, color: {self.color}, "
+            f"x: {self.x}, y: {self.y}, z: {self.z}"
+        )
 
 
 class Sun(Planet):
@@ -81,6 +96,7 @@ class Sun(Planet):
         """
         super().__init__(
             radius,
+            0,
             0,
             0,
             symbol,
