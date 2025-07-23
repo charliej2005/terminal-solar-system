@@ -13,6 +13,7 @@ class Planet:
         orbit_radius,
         period,
         angle=0.0,
+        inclination=0.0,
         symbol="*",
         line_width=1,
         color="white",
@@ -27,6 +28,9 @@ class Planet:
             orbit_radius (int): Orbit radius in characters of the Planet.
             period (float): Seconds needed for complete orbit.
             angle (float): Angle of revolution in radians.
+                Defaults to 0.0.
+            inclination (float): Angle of inclination in radians.
+                Defaults to 0.0
             symbol (str, optional): Symbol used to draw the Planet.
                 Defaults to "*".
             line_width (int, optional): Width of drawn Planet border.
@@ -44,6 +48,7 @@ class Planet:
         self.orbit_radius = orbit_radius
         self.period = period
         self.angle = angle
+        self.inclination = inclination
         self.symbol = symbol
         self.line_width = line_width
         self.color = color
@@ -60,7 +65,7 @@ class Planet:
             return
         dt = 1 / FPS
         self.angle = (self.angle + (dt / self.period) * 2) % (2 * math.pi)
-        self.x, self.z = polar_to_cartesian(self.orbit_radius, self.angle)
+        self.x, self.y, self.z = polar_to_cartesian(self.orbit_radius, self.angle, self.inclination)
         return
 
     def __str__(self):
@@ -96,6 +101,7 @@ class Sun(Planet):
         """
         super().__init__(
             radius,
+            0,
             0,
             0,
             0,
