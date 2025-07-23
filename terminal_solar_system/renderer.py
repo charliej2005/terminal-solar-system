@@ -15,13 +15,19 @@ def render_frame(planets, width, height):
     Returns:
         str: Buffer contents rendered to a string.
     """
-    buffer = [[' ' for _ in range(width)] for _ in range(height)]
+    buffer = [[(' ', None) for _ in range(width)] for _ in range(height)]
     center_x = width // 2
     center_y = height // 2
     sorted_planets = sorted(planets, key=lambda planet: planet.z)
     for planet in sorted_planets:
         render_planet(buffer, planet, center_x + planet.x, center_y + planet.y)
-    return "\n".join("".join(row) for row in buffer)
+    return "\n".join(
+        "".join(
+            f"[{color}]{symbol}[/{color}]" if color else symbol
+            for symbol, color in row
+        )
+        for row in buffer
+    )
 
 
 def render_planet(
@@ -55,11 +61,11 @@ def render_planet(
             dist = math.sqrt(dx ** 2 + dy ** 2)
 
             if inner_radius < dist < outer_radius:
-                buffer[yi][xi] = planet.symbol
+                buffer[yi][xi] = (planet.symbol, planet.color)
                 pixel_written = True
 
             if dist < inner_radius:
-                buffer[yi][xi] = ' '
+                buffer[yi][xi] = (' ', None)
 
             if dist < min_dist:
                 min_dist = dist
@@ -67,4 +73,4 @@ def render_planet(
 
     if not pixel_written:
         yi, xi = min_coords
-        buffer[yi][xi] = planet.symbol
+        buffer[yi][xi] = (planet.symbol, planet.color)

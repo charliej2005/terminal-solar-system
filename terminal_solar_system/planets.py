@@ -1,4 +1,5 @@
 import math
+import random
 
 from terminal_solar_system.config import FPS
 from terminal_solar_system.utils import polar_to_cartesian
@@ -47,7 +48,7 @@ class Planet:
         self.radius = radius
         self.orbit_radius = orbit_radius
         self.period = period
-        self.angle = angle
+        self.angle = random.uniform(0, 2 * math.pi)
         self.inclination = inclination
         self.symbol = symbol
         self.line_width = line_width
