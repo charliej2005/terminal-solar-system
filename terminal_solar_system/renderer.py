@@ -4,13 +4,14 @@ from terminal_solar_system.config import TERMINAL_X_SCALE
 from terminal_solar_system.config import DEPTH_OF_FIELD_MODIFIER
 
 
-def render_frame(planets, width, height):
+def render_frame(planets, width, height, print_color):
     """Returns a rendered frame to be printed.
 
     Args:
         planets (list[Planet]): List of planets to be drawn.
         width (int): Screen width.
         height (int): Screen height.
+        print_color (bool): Whether or not to color output.
 
     Returns:
         str: Buffer contents rendered to a string.
@@ -21,9 +22,17 @@ def render_frame(planets, width, height):
     sorted_planets = sorted(planets, key=lambda planet: planet.z)
     for planet in sorted_planets:
         render_planet(buffer, planet, center_x + planet.x, center_y + planet.y)
+    if print_color:
+        return "\n".join(
+            "".join(
+                f"[{color}]{symbol}[/{color}]" if color else symbol
+                for symbol, color in row
+            )
+            for row in buffer
+        )
     return "\n".join(
         "".join(
-            f"[{color}]{symbol}[/{color}]" if color else symbol
+            f"[{'white'}]{symbol}[/{'white'}]" if color else symbol
             for symbol, color in row
         )
         for row in buffer

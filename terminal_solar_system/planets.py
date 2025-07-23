@@ -1,7 +1,6 @@
 import math
 import random
 
-from terminal_solar_system.config import FPS
 from terminal_solar_system.utils import polar_to_cartesian
 
 
@@ -63,16 +62,19 @@ class Planet:
         self.y = y
         self.z = z
 
-    def update(self):
+    def update(self, framerate):
         """Updates the planet when called to calculate new position.
         Should be called once per frame.
+
+        Args:
+            framerate (int): Frames per second.
 
         Returns:
             None
         """
         if self.period == 0:
             return
-        dt = 1 / FPS
+        dt = 1 / framerate
         self.angle = (self.angle + (dt / self.period) * 2) % (2 * math.pi)
         self.x, self.y, self.z = polar_to_cartesian(
             self.orbit_radius, self.angle, self.inclination
