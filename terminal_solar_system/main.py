@@ -1,4 +1,3 @@
-import math
 import shutil
 from time import sleep
 
@@ -25,6 +24,15 @@ def main():
 
 
 def add_solar_system(planets):
+    """
+    Populates the given list with Planet objects representing the solar system.
+
+    Args:
+        planets (list): The list to which Planet objects will be appended.
+
+    Returns:
+        None
+    """
     planets.append(Sun(10, symbol='☀', color='bright_yellow'))  # Sun
     planets.append(
         Planet(2, 25, 0.8, symbol='☿', color='bright_white')
@@ -51,6 +59,7 @@ def add_solar_system(planets):
     planets.append(
         Planet(1, 150, 4.0, symbol='♇', color='white')
     )  # Pluto
+
 
 if __name__ == "__main__":
     main()

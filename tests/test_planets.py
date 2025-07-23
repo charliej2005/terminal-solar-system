@@ -87,7 +87,14 @@ class TestPlanet(unittest.TestCase):
         self.assertTrue(0 <= planet.angle < 2 * math.pi)
 
     def test_planet_str(self):
-        planet = Planet(1, 2, 3, angle=0.5, symbol='!', line_width=1, color='red', x=4, y=5, z=6)
+        planet = Planet(
+            1, 2, 3,
+            angle=0.5,
+            symbol='!',
+            line_width=1,
+            color='red',
+            x=4, y=5, z=6
+        )
         s = str(planet)
         self.assertIn("r: 1", s)
         self.assertIn("r_o: 2", s)

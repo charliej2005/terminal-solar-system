@@ -43,6 +43,9 @@ def render_planet(
         planet (Planet): The planet being drawn.
         center_x (int): Center x-coordinate of the buffer.
         center_y (int): Center y-coordinate of the buffer.
+
+    Returns:
+        None
     """
     height = len(buffer)
     width = len(buffer[0])

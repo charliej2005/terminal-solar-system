@@ -10,45 +10,45 @@ class Planet:
 
     def __init__(
         self,
-        radius,
-        orbit_radius,
-        period,
-        angle=0.0,
-        inclination=0.0,
-        symbol="*",
-        line_width=1,
-        color="white",
-        x=0,
-        y=0,
-        z=0,
+        radius: float,
+        orbit_radius: float,
+        period: float,
+        angle: float = random.uniform(0, 2 * math.pi),
+        inclination: float = 0.0,
+        symbol: str = "*",
+        line_width: float = 1,
+        color: str = "white",
+        x: float = 0,
+        y: float = 0,
+        z: float = 0,
     ):
         """Initialises new Planet.
 
         Args:
-            radius (int): Width in characters of the Planet.
-            orbit_radius (int): Orbit radius in characters of the Planet.
+            radius (float): Width of the Planet.
+            orbit_radius (float): Orbit radius of the Planet.
             period (float): Seconds needed for complete orbit.
-            angle (float): Angle of revolution in radians.
+            angle (float, optional): Angle of revolution in radians.
                 Defaults to 0.0.
-            inclination (float): Angle of inclination in radians.
-                Defaults to 0.0
+            inclination (float, optional): Angle of inclination in radians.
+                Defaults to 0.0.
             symbol (str, optional): Symbol used to draw the Planet.
                 Defaults to "*".
-            line_width (int, optional): Width of drawn Planet border.
+            line_width (float, optional): Width of drawn Planet border.
                 Defaults to 1.
             color (str, optional): Color used to draw the Planet.
                 Defaults to "white".
-            x (float): x-coordinate of the Planet's center.
+            x (float, optional): Initial x-coordinate of the Planet's center.
                 Defaults to 0.
-            y (float): y-coordinate of the Planet's center.
+            y (float, optional): Initial y-coordinate of the Planet's center.
                 Defaults to 0.
-            z (float): z-coordinate of the Planet's center.
+            z (float, optional): Initial z-coordinate of the Planet's center.
                 Defaults to 0.
         """
         self.radius = radius
         self.orbit_radius = orbit_radius
         self.period = period
-        self.angle = random.uniform(0, 2 * math.pi)
+        self.angle = angle
         self.inclination = inclination
         self.symbol = symbol
         self.line_width = line_width
@@ -60,16 +60,26 @@ class Planet:
     def update(self):
         """Updates the planet when called to calculate new position.
         Should be called once per frame.
+
+        Returns:
+            None
         """
-        # TODO: implement functionality
         if self.period == 0:
             return
         dt = 1 / FPS
         self.angle = (self.angle + (dt / self.period) * 2) % (2 * math.pi)
-        self.x, self.y, self.z = polar_to_cartesian(self.orbit_radius, self.angle, self.inclination)
+        self.x, self.y, self.z = polar_to_cartesian(
+            self.orbit_radius, self.angle, self.inclination
+        )
         return
 
     def __str__(self):
+        """
+        Returns a string representation of the planet's current state.
+
+        Returns:
+            str: String with planet parameters and position.
+        """
         return (
             f"r: {self.radius}, r_o: {self.orbit_radius}, T: {self.period}, "
             f"θ: {self.angle}, symbol: {self.symbol}, "
@@ -84,18 +94,18 @@ class Sun(Planet):
 
     def __init__(
         self,
-        radius,
-        symbol="*",
-        line_width=3,
-        color="white",
+        radius: float,
+        symbol: str = "*",
+        line_width: float = 3,
+        color: str = "white",
     ):
         """Initialises new Sun.
 
         Args:
-            radius (int): Width in characters of the Sun.
+            radius (float): Width of the Sun.
             symbol (str, optional): Symbol used to draw the Sun.
                 Defaults to "*".
-            line_width (int, optional): Width of drawn Sun border.
+            line_width (float, optional): Width of drawn Sun border.
                 Defaults to 3.
             color (str, optional): Color used to draw the Sun.
                 Defaults to "white".
