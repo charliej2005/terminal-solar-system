@@ -4,7 +4,8 @@ from time import sleep
 from rich.console import Console
 from rich.live import Live
 
-from terminal_solar_system.planets import Planet, Sun
+from terminal_solar_system.config import STAR_COUNT
+from terminal_solar_system.planets import Planet, Star, Sun
 from terminal_solar_system.renderer import render_frame
 
 
@@ -12,19 +13,21 @@ def main(fps, color):
     """Runs a simple animated ASCII solar system in your Unix terminal."""
     framerate = fps
     print_color = color
-    width, height = shutil.get_terminal_size()
     console = Console()
+    stars = [Star(console) for _ in range(STAR_COUNT)]
     planets = []
     add_solar_system(planets)
     with Live("", refresh_per_second=framerate, console=console) as live:
         while True:
+            for star in stars:
+                star.update()
             for planet in planets:
                 planet.update(framerate)
             live.update(
                 render_frame(
                     planets,
-                    console.width,
-                    console.height,
+                    stars,
+                    console,
                     print_color
                 )
             )

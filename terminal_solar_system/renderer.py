@@ -1,10 +1,11 @@
 import math
+import random
 
 from terminal_solar_system.config import TERMINAL_X_SCALE
 from terminal_solar_system.config import DEPTH_OF_FIELD_MODIFIER
 
 
-def render_frame(planets, width, height, print_color):
+def render_frame(planets, stars, console, print_color):
     """Returns a rendered frame to be printed.
 
     Args:
@@ -16,10 +17,14 @@ def render_frame(planets, width, height, print_color):
     Returns:
         str: Buffer contents rendered to a string.
     """
+    width = console.width
+    height = console.height
     buffer = [[(' ', None) for _ in range(width)] for _ in range(height)]
     center_x = width // 2
     center_y = height // 2
     sorted_planets = sorted(planets, key=lambda planet: planet.z)
+    for star in stars:
+        render_star(buffer, star)
     for planet in sorted_planets:
         render_planet(buffer, planet, center_x + planet.x, center_y + planet.y)
     if print_color:
@@ -86,3 +91,14 @@ def render_planet(
     if not pixel_written:
         yi, xi = min_coords
         buffer[yi][xi] = (planet.symbol, planet.color)
+
+
+def render_star(buffer, star):
+    if (
+        star.idx == 0
+        or star.y > len(buffer) - 1
+        or star.x > len(buffer[0]) - 1
+    ):
+        star.x = random.randint(0, len(buffer[0]) - 1)
+        star.y = random.randint(0, len(buffer) - 1)
+    buffer[star.y][star.x] = (star.frames[star.idx], star.color)

@@ -1,7 +1,9 @@
 import math
 import random
+import time
 
 from terminal_solar_system.utils import polar_to_cartesian
+from terminal_solar_system.config import STAR_FRAME_HOLD
 
 
 class Planet:
@@ -133,3 +135,21 @@ class Sun(Planet):
             line_width,
             color,
         )
+
+
+class Star():
+
+    def __init__(self, console):
+        self.x = random.randint(0, console.width - 1)
+        self.y = random.randint(0, console.height - 1)
+        self.frames = [' ', '.', '+', '*', '+', '.', ' ']
+        self.idx = random.randint(0, len(self.frames) - 1)
+        self.time = time.time() + random.uniform(0, STAR_FRAME_HOLD)
+        self.color = "white"
+
+    def update(self):
+        current_time = time.time()
+        dt = current_time - self.time
+        if dt > STAR_FRAME_HOLD:
+            self.time = current_time
+            self.idx = (self.idx + 1) % len(self.frames)
