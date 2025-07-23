@@ -68,7 +68,7 @@ def render_planet(
                 pixel_written = True
 
             if dist < inner_radius:
-                buffer[yi][xi] = (' ', None)
+                buffer[yi][xi] = (planet.fill, planet.color)
 
             if dist < min_dist:
                 min_dist = dist

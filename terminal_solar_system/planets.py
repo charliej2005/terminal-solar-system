@@ -15,7 +15,8 @@ class Planet:
         period: float,
         angle: float = None,
         inclination: float = 0.0,
-        symbol: str = "*",
+        symbol: chr = "*",
+        fill: chr = " ",
         line_width: float = 1,
         color: str = "white",
         x: float = 0,
@@ -32,8 +33,10 @@ class Planet:
                 Defaults to 0.0.
             inclination (float, optional): Angle of inclination in radians.
                 Defaults to 0.0.
-            symbol (str, optional): Symbol used to draw the Planet.
+            symbol (chr, optional): Symbol used to draw the Planet border.
                 Defaults to "*".
+            fill (chr, optional): Symbol used to fill in planet border.
+                Defaults to " ".
             line_width (float, optional): Width of drawn Planet border.
                 Defaults to 1.
             color (str, optional): Color used to draw the Planet.
@@ -53,6 +56,7 @@ class Planet:
         self.angle = angle
         self.inclination = inclination
         self.symbol = symbol
+        self.fill = fill
         self.line_width = line_width
         self.color = color
         self.x = x
@@ -84,8 +88,9 @@ class Planet:
         """
         return (
             f"r: {self.radius}, r_o: {self.orbit_radius}, T: {self.period}, "
-            f"θ: {self.angle}, symbol: {self.symbol}, "
-            f"line_width: {self.line_width}, color: {self.color}, "
+            f"θ: {self.angle}, φ: {self.inclination}, symbol: {self.symbol}, "
+            f"fill: {self.fill}, line_width: {self.line_width}, "
+            f"color: {self.color}, "
             f"x: {self.x}, y: {self.y}, z: {self.z}"
         )
 
@@ -97,7 +102,8 @@ class Sun(Planet):
     def __init__(
         self,
         radius: float,
-        symbol: str = "*",
+        symbol: chr = "*",
+        fill: chr = " ",
         line_width: float = 3,
         color: str = "white",
     ):
@@ -105,8 +111,10 @@ class Sun(Planet):
 
         Args:
             radius (float): Width of the Sun.
-            symbol (str, optional): Symbol used to draw the Sun.
+            symbol (chr, optional): Symbol used to draw the Sun.
                 Defaults to "*".
+            fill (chr, optional): Symbol used to fill in planet border.
+                Defaults to " ".
             line_width (float, optional): Width of drawn Sun border.
                 Defaults to 3.
             color (str, optional): Color used to draw the Sun.
@@ -119,6 +127,7 @@ class Sun(Planet):
             0,
             0,
             symbol,
+            fill,
             line_width,
             color,
         )
