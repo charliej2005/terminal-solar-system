@@ -60,7 +60,6 @@ class Planet:
         dt = 1 / FPS
         self.angle = (self.angle + (dt / self.period) * 2) % (2 * math.pi)
         self.x, self.z = polar_to_cartesian(self.orbit_radius, self.angle)
-        print(self)
         return
 
     def __str__(self):

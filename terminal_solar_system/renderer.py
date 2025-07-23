@@ -1,5 +1,5 @@
 import math
-from config import TERMINAL_X_SCALE
+from config import TERMINAL_X_SCALE, DEPTH_OF_FIELD_MODIFIER
 
 
 def render_frame(planets, width, height):
@@ -37,15 +37,28 @@ def render_planet(
     """
     height = len(buffer)
     width = len(buffer[0])
+
+    pixel_written = False
+    min_dist = float("inf")
+
+    depth_of_field = planet.z / DEPTH_OF_FIELD_MODIFIER
+    inner_radius = planet.radius + depth_of_field - planet.line_width / 2
+    outer_radius = planet.radius + depth_of_field + planet.line_width / 2
+
     for yi in range(height):
         for xi in range(width):
             dx = (xi - center_x) / TERMINAL_X_SCALE
             dy = (yi - center_y)
-            dist = math.sqrt(
-                dx ** 2 + dy ** 2
-            )
-            if (
-                dist > planet.radius - planet.line_width / 2
-                and dist < planet.radius + planet.line_width / 2
-            ):
+            dist = math.sqrt(dx ** 2 + dy ** 2)
+
+            if inner_radius < dist < outer_radius:
                 buffer[yi][xi] = planet.symbol
+                pixel_written = True
+
+            if dist < min_dist:
+                min_dist = dist
+                min_coords = (yi, xi)
+                
+    if not pixel_written:
+        yi, xi = min_coords
+        buffer[yi][xi] = planet.symbol
