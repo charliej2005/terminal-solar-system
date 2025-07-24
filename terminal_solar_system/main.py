@@ -21,7 +21,7 @@ from terminal_solar_system.config import (
 )
 
 
-def main(framerate, print_color, star_count, terminal_x_scale):
+def main(framerate, print_color, star_count, terminal_x_scale, random_planets):
     """Runs a simple animated ASCII solar system in your Unix terminal.
 
     Args:
@@ -29,6 +29,7 @@ def main(framerate, print_color, star_count, terminal_x_scale):
         print_color (bool): Enabled color.
         star_count (int): Stars in the background.
         terminal_x_scale (float): Font height/width ratio.
+        random_planets (bool): Randomised planets.
 
     Returns:
         None
@@ -36,8 +37,10 @@ def main(framerate, print_color, star_count, terminal_x_scale):
     console = Console()
     stars = [Star(console) for _ in range(star_count)]
     planets = []
-    # add_solar_system(planets)
-    add_random_solar_system(planets)
+    if random_planets:
+        add_random_solar_system(planets)
+    else:
+        add_solar_system(planets)
     with Live("", refresh_per_second=framerate, console=console) as live:
         while True:
             for star in stars:
@@ -58,7 +61,8 @@ def main(framerate, print_color, star_count, terminal_x_scale):
 
 def add_solar_system(planets):
     """
-    Populates the given list with Planet objects representing the solar system.
+    Populates the given list with Planet objects representing the solar system
+    using vibrant versions of their real-life colors.
 
     Args:
         planets (list): The list to which Planet objects will be appended.
@@ -70,31 +74,31 @@ def add_solar_system(planets):
         Sun(10, symbol='☀', fill='`', color='bright_yellow')
     )  # Sun
     planets.append(
-        Planet(2, 25, 0.8, symbol='☿', color='bright_white')
+        Planet(2, 40, 0.8, symbol='☿', color='bright_white')
     )  # Mercury
     planets.append(
-        Planet(3, 35, 1.2, symbol='♀', fill=',', color='magenta')
+        Planet(3, 50, 1.2, symbol='♀', fill=',', color='bright_yellow')
     )  # Venus
     planets.append(
-        Planet(3, 45, 1.0, symbol='⊕', fill='`', color='deep_sky_blue')
+        Planet(3, 60, 1.0, symbol='⊕', fill='`', color='bright_blue')
     )  # Earth
     planets.append(
-        Planet(2, 55, 0.9, symbol='♂', fill='.', color='red')
+        Planet(2, 70, 0.9, symbol='♂', fill='.', color='bright_red')
     )  # Mars
     planets.append(
-        Planet(5, 70, 2.0, symbol='♃', fill='\'', color='gold1')
+        Planet(5, 80, 2.0, symbol='♃', fill='\'', color='orange1')
     )  # Jupiter
     planets.append(
-        Planet(4, 90, 2.5, symbol='♄', fill=':', color='pale_yellow')
+        Planet(4, 90, 2.5, symbol='♄', fill=':', color='gold1')
     )  # Saturn
     planets.append(
-        Planet(3, 110, 3.0, symbol='♅', fill=';', color='cyan')
+        Planet(3, 110, 3.0, symbol='♅', fill=';', color='bright_cyan')
     )  # Uranus
     planets.append(
-        Planet(3, 130, 3.5, symbol='♆', fill='`', color='blue')
+        Planet(3, 130, 3.5, symbol='♆', fill='`', color='deep_sky_blue1')
     )  # Neptune
     planets.append(
-        Planet(1, 150, 4.0, symbol='♇', color='white')
+        Planet(1, 150, 4.0, symbol='♇', color='bright_white')
     )  # Pluto
 
 
