@@ -1,7 +1,11 @@
 import math
 import random
 
-from terminal_solar_system.config import DEPTH_OF_FIELD_MODIFIER
+from terminal_solar_system.config import (
+    DEPTH_OF_FIELD_MODIFIER,
+    RING_CHAR,
+    RING_SIZE_MODIFIER,
+)
 
 
 def render_frame(planets, stars, console, print_color, terminal_x_scale):
@@ -103,6 +107,47 @@ def render_planet(
     if not pixel_written:
         yi, xi = min_coords
         buffer[yi][xi] = (planet.symbol, planet.color)
+
+    if planet.has_ring:
+        render_planet_ring(
+            buffer,
+            planet,
+            center_x,
+            center_y,
+            terminal_x_scale
+        )
+
+
+def render_planet_ring(
+    buffer,
+    planet,
+    center_x,
+    center_y,
+    terminal_x_scale
+):
+    """Draws a Planet's ring to the buffer.
+
+    Args:
+        buffer (list[list[str]]): Buffer to write to.
+        planet (Planet): The planet whose ring is being drawn.
+        center_x (int): Center x-coordinate of the buffer.
+        center_y (int): Center y-coordinate of the buffer.
+        terminal_x_scale (float): height/width ratio of text in terminal.
+
+    Returns:
+        None
+    """
+    height = len(buffer)
+    width = len(buffer[0])
+
+    depth_of_field = planet.z / DEPTH_OF_FIELD_MODIFIER
+    ring_length = int((planet.radius + depth_of_field) * RING_SIZE_MODIFIER)
+
+    for offset in range(-ring_length, ring_length + 1):
+        y = int(center_y + offset)
+        x = int(center_x + offset * terminal_x_scale)
+        if 0 <= y < height and 0 <= x < width:
+            buffer[y][x] = (RING_CHAR, planet.color)
 
 
 def render_star(buffer, star):

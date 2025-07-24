@@ -13,6 +13,10 @@ INCLINATION_CHANCE = 0.2
 MAX_INCLINATION = math.pi / 4
 ORBIT_RADIUS_MULTIPLIER = 3
 
+RING_CHAR = "/"
+RING_SIZE_MODIFIER = 1.2
+RING_CHANCE = 0.125
+
 BORDER_SYMBOLS = [
     '*', 'O', '@', '#', '+', '-', '=', '~', '%', '$',
     '☀', '☿', '♀', '⊕', '♂', '♃', '♄', '♅', '♆', '♇'

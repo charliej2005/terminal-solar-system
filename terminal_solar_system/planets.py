@@ -19,6 +19,7 @@ class Planet:
         symbol: chr = "*",
         fill: chr = " ",
         line_width: float = 1,
+        has_ring: bool = False,
         color: str = "white",
         x: float = 0,
         y: float = 0,
@@ -40,6 +41,8 @@ class Planet:
                 Defaults to " ".
             line_width (float, optional): Width of drawn Planet border.
                 Defaults to 1.
+            has_ring (bool, optional): Whether or not the Planet has a ring.
+                Defaults to False.
             color (str, optional): Color used to draw the Planet.
                 Defaults to "white".
             x (float, optional): Initial x-coordinate of the Planet's center.
@@ -59,6 +62,7 @@ class Planet:
         self.symbol = symbol
         self.fill = fill
         self.line_width = line_width
+        self.has_ring = has_ring
         self.color = color
         self.x = x
         self.y = y
@@ -128,12 +132,10 @@ class Sun(Planet):
             radius,
             0,
             0,
-            0,
-            0,
-            symbol,
-            fill,
-            line_width,
-            color,
+            symbol=symbol,
+            fill=fill,
+            line_width=line_width,
+            color=color,
         )
 
 

@@ -17,7 +17,8 @@ from terminal_solar_system.config import (
     MIN_PERIOD,
     MIN_RADIUS,
     ORBIT_RADIUS_MULTIPLIER,
-    PLANET_COLORS
+    PLANET_COLORS,
+    RING_CHANCE
 )
 
 
@@ -89,7 +90,7 @@ def add_solar_system(planets):
         Planet(5, 80, 2.0, symbol='♃', fill='\'', color='orange1')
     )  # Jupiter
     planets.append(
-        Planet(4, 90, 2.5, symbol='♄', fill=':', color='gold1')
+        Planet(4, 90, 2.5, symbol='♄', fill=':', color='gold1', has_ring=True)
     )  # Saturn
     planets.append(
         Planet(3, 110, 3.0, symbol='♅', fill=';', color='bright_cyan')
@@ -141,6 +142,10 @@ def add_random_solar_system(planets, min_planets=3, max_planets=10):
             inclination = random.uniform(0, MAX_INCLINATION)
         else:
             inclination = 0
+        if random.random() < RING_CHANCE:
+            has_ring = True
+        else:
+            has_ring = False
 
         planets.append(
             Planet(
@@ -148,6 +153,7 @@ def add_random_solar_system(planets, min_planets=3, max_planets=10):
                 inclination=inclination,
                 symbol=symbol,
                 fill=fill,
-                color=color
+                color=color,
+                has_ring=has_ring
             )
         )
