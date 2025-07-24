@@ -1,3 +1,5 @@
+"""Entry point for the Terminal Solar System simulation."""
+
 import argparse
 from terminal_solar_system.main import main
 
@@ -17,7 +19,7 @@ if __name__ == "__main__":
         "--stars", type=int, default=100, help="Stars in the background"
     )
     parser.add_argument(
-        "--x-scale", type=float, default=2.2, help="Font height/width ratio."
+        "--x-scale", type=float, default=2.2, help="Font height/width ratio"
     )
     args = parser.parse_args()
     main(args.fps, args.color, args.stars, args.x_scale, args.random)
