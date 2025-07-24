@@ -1,10 +1,24 @@
 from time import sleep
+import random
 
 from rich.console import Console
 from rich.live import Live
 
 from terminal_solar_system.planets import Planet, Star, Sun
 from terminal_solar_system.renderer import render_frame
+from terminal_solar_system.config import (
+    BORDER_SYMBOLS,
+    FILL_SYMBOLS,
+    INCLINATION_CHANCE,
+    MAX_INCLINATION,
+    MAX_ORBIT_RADIUS,
+    MAX_PERIOD,
+    MAX_RADIUS,
+    MIN_PERIOD,
+    MIN_RADIUS,
+    ORBIT_RADIUS_MULTIPLIER,
+    PLANET_COLORS
+)
 
 
 def main(framerate, print_color, star_count, terminal_x_scale):
@@ -22,7 +36,8 @@ def main(framerate, print_color, star_count, terminal_x_scale):
     console = Console()
     stars = [Star(console) for _ in range(star_count)]
     planets = []
-    add_solar_system(planets)
+    # add_solar_system(planets)
+    add_random_solar_system(planets)
     with Live("", refresh_per_second=framerate, console=console) as live:
         while True:
             for star in stars:
@@ -53,35 +68,82 @@ def add_solar_system(planets):
     """
     planets.append(
         Sun(10, symbol='☀', fill='`', color='bright_yellow')
-        )  # Sun
+    )  # Sun
     planets.append(
         Planet(2, 25, 0.8, symbol='☿', color='bright_white')
     )  # Mercury
     planets.append(
-        Planet(3, 35, 1.2, symbol='♀', fill=',', color='magenta1')
+        Planet(3, 35, 1.2, symbol='♀', fill=',', color='magenta')
     )  # Venus
     planets.append(
-        Planet(3, 45, 1.0, symbol='⊕', fill='`', color='deep_sky_blue1')
+        Planet(3, 45, 1.0, symbol='⊕', fill='`', color='deep_sky_blue')
     )  # Earth
     planets.append(
-        Planet(2, 55, 0.9, symbol='♂', fill='.', color='red1')
+        Planet(2, 55, 0.9, symbol='♂', fill='.', color='red')
     )  # Mars
     planets.append(
         Planet(5, 70, 2.0, symbol='♃', fill='\'', color='gold1')
     )  # Jupiter
     planets.append(
-        Planet(4, 90, 2.5, symbol='♄', fill=':', color='bright_cyan')
+        Planet(4, 90, 2.5, symbol='♄', fill=':', color='pale_yellow')
     )  # Saturn
     planets.append(
-        Planet(3, 110, 3.0, symbol='♅', fill=';', color='cyan1')
+        Planet(3, 110, 3.0, symbol='♅', fill=';', color='cyan')
     )  # Uranus
     planets.append(
-        Planet(3, 130, 3.5, symbol='♆', fill='`', color='blue1')
+        Planet(3, 130, 3.5, symbol='♆', fill='`', color='blue')
     )  # Neptune
     planets.append(
         Planet(1, 150, 4.0, symbol='♇', color='white')
     )  # Pluto
 
 
-if __name__ == "__main__":
-    main()
+def add_random_solar_system(planets, min_planets=3, max_planets=10):
+    """
+    Populates the given list with a random number of randomised planets.
+
+    Args:
+        planets (list): The list to which Planet objects will be appended.
+        min_planets (int): Minimum number of planets.
+        max_planets (int): Maximum number of planets.
+
+    Returns:
+        None
+    """
+    sun_radius = random.randint(8, 14)
+    sun_symbol = random.choice(BORDER_SYMBOLS)
+    sun_fill = random.choice(FILL_SYMBOLS)
+    sun_color = random.choice(PLANET_COLORS)
+
+    sun = Sun(
+            radius=sun_radius,
+            symbol=sun_symbol,
+            fill=sun_fill,
+            color=sun_color
+        )
+    planets.append(sun)
+
+    min_orbit_radius = ORBIT_RADIUS_MULTIPLIER * (sun_radius + sun.line_width)
+    num_planets = random.randint(min_planets, max_planets)
+
+    for _ in range(num_planets):
+        radius = random.randint(MIN_RADIUS, MAX_RADIUS)
+        orbit_radius = random.uniform(min_orbit_radius, MAX_ORBIT_RADIUS)
+        period = random.uniform(MIN_PERIOD, MAX_PERIOD)
+        symbol = random.choice(BORDER_SYMBOLS)
+        fill = random.choice(FILL_SYMBOLS)
+        color = random.choice(PLANET_COLORS)
+        if random.random() < INCLINATION_CHANCE:
+            inclination = random.uniform(0, MAX_INCLINATION)
+        else:
+            inclination = 0
+
+        planets.append(
+            Planet(
+                radius, orbit_radius, period,
+                inclination=inclination,
+                symbol=symbol,
+                fill=fill,
+                color=color
+            )
+        )
