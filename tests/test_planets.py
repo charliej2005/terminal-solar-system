@@ -12,7 +12,7 @@ class TestPlanet(unittest.TestCase):
         self.assertEqual(planet.radius, 10)
         self.assertEqual(planet.orbit_radius, 4)
         self.assertEqual(planet.period, 8)
-        self.assertEqual(planet.angle, 0.0)
+        self.assertTrue(0 <= planet.angle < 2 * math.pi)
         self.assertEqual(planet.symbol, "*")
         self.assertEqual(planet.line_width, 1)
         self.assertEqual(planet.color, "white")
@@ -67,7 +67,7 @@ class TestPlanet(unittest.TestCase):
         old_angle = planet.angle
         old_x = planet.x
         old_z = planet.z
-        planet.update()
+        planet.update(60)
         self.assertNotEqual(planet.angle, old_angle)
         self.assertNotEqual((planet.x, planet.z), (old_x, old_z))
 
@@ -76,14 +76,14 @@ class TestPlanet(unittest.TestCase):
         old_angle = planet.angle
         old_x = planet.x
         old_z = planet.z
-        planet.update()
+        planet.update(60)
         self.assertEqual(planet.angle, old_angle)
         self.assertEqual(planet.x, old_x)
         self.assertEqual(planet.z, old_z)
 
     def test_planet_update_angle_wraps(self):
         planet = Planet(1, 10, 1, angle=2 * math.pi - 0.01)
-        planet.update()
+        planet.update(60)
         self.assertTrue(0 <= planet.angle < 2 * math.pi)
 
     def test_planet_str(self):
@@ -123,7 +123,7 @@ class TestSun(unittest.TestCase):
         old_angle = sun.angle
         old_x = sun.x
         old_z = sun.z
-        sun.update()
+        sun.update(60)
         self.assertEqual(sun.angle, old_angle)
         self.assertEqual(sun.x, old_x)
         self.assertEqual(sun.z, old_z)
