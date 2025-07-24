@@ -140,8 +140,23 @@ class Sun(Planet):
 
 
 class Star():
+    """Represents a star.
+    Unlike Planets, coordinates are exact pixels on the screen."""
 
     def __init__(self, console):
+        """Initializes a new Star.
+
+        Args:
+            console (Console): Console being drawn to.
+
+        Attributes:
+            x (int): X-coordinate of the star on the screen.
+            y (int): Y-coordinate of the star on the screen.
+            frames (list[str]): Animation frames for the star's twinkle effect.
+            idx (int): Current frame index for animation.
+            time (float): Timestamp for the next frame update.
+            color (str): Color used to draw the star.
+        """
         self.x = random.randint(0, console.width - 1)
         self.y = random.randint(0, console.height - 1)
         self.frames = [' ', '.', '+', '*', '+', '.', ' ']
@@ -150,6 +165,8 @@ class Star():
         self.color = "white"
 
     def update(self):
+        """Updates the Star when called to calculate new symbol/position.
+        Should be called once per frame."""
         current_time = time.time()
         dt = current_time - self.time
         if dt > STAR_FRAME_HOLD:

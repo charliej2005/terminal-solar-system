@@ -151,6 +151,15 @@ def render_planet_ring(
 
 
 def render_star(buffer, star):
+    """Draws a Star to the buffer for rendering.
+
+    Args:
+        buffer (list[list[str]]): Buffer to write to.
+        star (Star): The star being drawn.
+
+    Returns:
+        None
+    """
     if (
         star.idx == 0
         or star.y > len(buffer) - 1
