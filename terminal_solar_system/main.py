@@ -7,8 +7,18 @@ from terminal_solar_system.planets import Planet, Star, Sun
 from terminal_solar_system.renderer import render_frame
 
 
-def main(framerate, print_color, star_count):
-    """Runs a simple animated ASCII solar system in your Unix terminal."""
+def main(framerate, print_color, star_count, terminal_x_scale):
+    """Runs a simple animated ASCII solar system in your Unix terminal.
+
+    Args:
+        framerate (int): Frames per second.
+        print_color (bool): Enabled color.
+        star_count (int): Stars in the background.
+        terminal_x_scale (float): Font height/width ratio.
+
+    Returns:
+        None
+    """
     console = Console()
     stars = [Star(console) for _ in range(star_count)]
     planets = []
@@ -24,7 +34,8 @@ def main(framerate, print_color, star_count):
                     planets,
                     stars,
                     console,
-                    print_color
+                    print_color,
+                    terminal_x_scale
                 )
             )
             sleep(1 / framerate)

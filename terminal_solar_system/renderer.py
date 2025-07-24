@@ -1,18 +1,19 @@
 import math
 import random
 
-from terminal_solar_system.config import TERMINAL_X_SCALE
 from terminal_solar_system.config import DEPTH_OF_FIELD_MODIFIER
 
 
-def render_frame(planets, stars, console, print_color):
+def render_frame(planets, stars, console, print_color, terminal_x_scale):
     """Returns a rendered frame to be printed.
 
     Args:
         planets (list[Planet]): List of planets to be drawn.
-        width (int): Screen width.
-        height (int): Screen height.
+        stars (list[Star]): List of stars to be drawn.
+        console (Console): Console being drawn to.
         print_color (bool): Whether or not to color output.
+        terminal_x_scale (float): Font height/width ratio.
+
 
     Returns:
         str: Buffer contents rendered to a string.
@@ -26,7 +27,13 @@ def render_frame(planets, stars, console, print_color):
     for star in stars:
         render_star(buffer, star)
     for planet in sorted_planets:
-        render_planet(buffer, planet, center_x + planet.x, center_y + planet.y)
+        render_planet(
+            buffer,
+            planet,
+            center_x + planet.x,
+            center_y + planet.y,
+            terminal_x_scale
+        )
     if print_color:
         return "\n".join(
             "".join(
@@ -49,6 +56,7 @@ def render_planet(
         planet,
         center_x,
         center_y,
+        terminal_x_scale
 ):
     """Writes a planet to the buffer for rendering.
 
@@ -57,10 +65,14 @@ def render_planet(
         planet (Planet): The planet being drawn.
         center_x (int): Center x-coordinate of the buffer.
         center_y (int): Center y-coordinate of the buffer.
+        terminal_x_scale (float): height/width ratio of text in terminal.
 
     Returns:
         None
     """
+    if terminal_x_scale == 0:
+        return
+
     height = len(buffer)
     width = len(buffer[0])
 
@@ -73,7 +85,7 @@ def render_planet(
 
     for yi in range(height):
         for xi in range(width):
-            dx = (xi - center_x) / TERMINAL_X_SCALE
+            dx = (xi - center_x) / terminal_x_scale
             dy = (yi - center_y)
             dist = math.sqrt(dx ** 2 + dy ** 2)
 
