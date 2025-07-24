@@ -10,5 +10,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--color", action="store_true", help="Enable color output"
     )
+    parser.add_argument(
+        "--stars", type=int, default=100, help="Stars in the background"
+    )
     args = parser.parse_args()
-    main(fps=args.fps, color=args.color)
+    main(args.fps, args.color, args.stars)
