@@ -1,7 +1,8 @@
 import math
 import unittest
 
-from terminal_solar_system.planets import Planet, Sun
+from terminal_solar_system.config import STAR_FRAME_HOLD
+from terminal_solar_system.planets import Planet, Star, Sun
 
 
 class TestPlanet(unittest.TestCase):
@@ -129,5 +130,36 @@ class TestSun(unittest.TestCase):
         self.assertEqual(sun.z, old_z)
 
 
-if __name__ == '__main__':
-    unittest.main()
+class TestStar(unittest.TestCase):
+    def test_star_initialization(self):
+        class DummyConsole:
+            width = 80
+            height = 24
+        star = Star(DummyConsole())
+        self.assertTrue(0 <= star.x < 80)
+        self.assertTrue(0 <= star.y < 24)
+        self.assertIsInstance(star.frames, list)
+        self.assertIn(star.frames[star.idx], star.frames)
+        self.assertIsInstance(star.time, float)
+        self.assertEqual(star.color, "white")
+
+    def test_star_update_advances_frame(self):
+        class DummyConsole:
+            width = 80
+            height = 24
+        star = Star(DummyConsole())
+        original_idx = star.idx
+        # This advances dt in the Star class
+        star.time -= (STAR_FRAME_HOLD + 1)
+        star.update()
+        self.assertNotEqual(star.idx, original_idx)
+        self.assertIn(star.frames[star.idx], star.frames)
+
+    def test_star_update_no_advance(self):
+        class DummyConsole:
+            width = 80
+            height = 24
+        star = Star(DummyConsole())
+        original_idx = star.idx
+        star.update()
+        self.assertEqual(star.idx, original_idx)
