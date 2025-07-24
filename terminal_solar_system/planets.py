@@ -51,6 +51,9 @@ class Planet:
                 Defaults to 0.
             z (float, optional): Initial z-coordinate of the Planet's center.
                 Defaults to 0.
+
+        Attributes:
+            time (float): Timestamp for the next frame update.
         """
         self.radius = radius
         self.orbit_radius = orbit_radius
@@ -67,24 +70,26 @@ class Planet:
         self.x = x
         self.y = y
         self.z = z
+        self.time = time.time()
 
-    def update(self, framerate):
+    def update(self):
         """Updates the planet when called to calculate new position.
         Should be called once per frame.
-
-        Args:
-            framerate (int): Frames per second.
 
         Returns:
             None
         """
         if self.period == 0:
             return
-        dt = 1 / framerate
-        self.angle = (self.angle + (dt / self.period) * 2) % (2 * math.pi)
+        current_time = time.time()
+        dt = current_time - self.time
+        self.angle = (
+            self.angle + (dt / self.period) * 2 * math.pi
+        ) % (2 * math.pi)
         self.x, self.y, self.z = polar_to_cartesian(
             self.orbit_radius, self.angle, self.inclination
         )
+        self.time = current_time
         return
 
     def __str__(self):

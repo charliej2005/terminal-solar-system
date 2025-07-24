@@ -57,7 +57,7 @@ def main(framerate, print_color, star_count, terminal_x_scale, random_planets):
             for star in stars:
                 star.update()
             for planet in planets:
-                planet.update(framerate)
+                planet.update()
             live.update(
                 render_frame(
                     planets,
@@ -85,31 +85,31 @@ def add_solar_system(planets):
         Sun(10, symbol='☀', fill='`', color='bright_yellow')
     )  # Sun
     planets.append(
-        Planet(2, 40, 0.8, symbol='☿', color='bright_white')
+        Planet(2, 40, 4.8, symbol='☿', color='bright_white')
     )  # Mercury
     planets.append(
-        Planet(3, 50, 1.2, symbol='♀', fill=',', color='bright_yellow')
+        Planet(3, 50, 7.2, symbol='♀', fill=',', color='bright_yellow')
     )  # Venus
     planets.append(
-        Planet(3, 60, 1.0, symbol='⊕', fill='`', color='bright_blue')
+        Planet(3, 60, 6.0, symbol='⊕', fill='`', color='bright_blue')
     )  # Earth
     planets.append(
-        Planet(2, 70, 0.9, symbol='♂', fill='.', color='bright_red')
+        Planet(2, 70, 5.4, symbol='♂', fill='.', color='bright_red')
     )  # Mars
     planets.append(
-        Planet(5, 80, 2.0, symbol='♃', fill='\'', color='orange1')
+        Planet(5, 80, 12.0, symbol='♃', fill='\'', color='orange1')
     )  # Jupiter
     planets.append(
-        Planet(4, 90, 2.5, symbol='♄', fill=':', color='gold1', has_ring=True)
+        Planet(4, 90, 15.0, symbol='♄', fill=':', color='gold1', has_ring=True)
     )  # Saturn
     planets.append(
-        Planet(3, 110, 3.0, symbol='♅', fill=';', color='bright_cyan')
+        Planet(3, 110, 18.0, symbol='♅', fill=';', color='bright_cyan')
     )  # Uranus
     planets.append(
-        Planet(3, 130, 3.5, symbol='♆', fill='`', color='deep_sky_blue1')
+        Planet(3, 130, 21.0, symbol='♆', fill='`', color='deep_sky_blue1')
     )  # Neptune
     planets.append(
-        Planet(1, 150, 4.0, symbol='♇', color='bright_white')
+        Planet(1, 150, 24.0, symbol='♇', color='bright_white')
     )  # Pluto
 
 
