@@ -5,7 +5,9 @@ from terminal_solar_system.main import main
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        epilog="exit the program at any time by pressing 'q'"
+    )
     parser.add_argument(
         "--random", action="store_true", help="randomise planets"
     )

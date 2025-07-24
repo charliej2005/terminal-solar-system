@@ -1,9 +1,11 @@
 from time import sleep
 import random
+import threading
 
 from rich.console import Console
 from rich.live import Live
 
+from terminal_solar_system.utils import listen_for_quit
 from terminal_solar_system.planets import Planet, Star, Sun
 from terminal_solar_system.renderer import render_frame
 from terminal_solar_system.config import (
@@ -42,8 +44,16 @@ def main(framerate, print_color, star_count, terminal_x_scale, random_planets):
         add_random_solar_system(planets)
     else:
         add_solar_system(planets)
+
+    stop_event = threading.Event()
+    threading.Thread(
+        target=listen_for_quit,
+        args=(stop_event,),
+        daemon=True
+    ).start()
+
     with Live("", refresh_per_second=framerate, console=console) as live:
-        while True:
+        while not stop_event.is_set():
             for star in stars:
                 star.update()
             for planet in planets:
