@@ -106,7 +106,8 @@ def render_planet(
 
     if not pixel_written:
         yi, xi = min_coords
-        buffer[yi][xi] = (planet.symbol, planet.color)
+        if 0 < yi < height - 1 and 0 < xi < width - 1:
+            buffer[yi][xi] = (planet.symbol, planet.color)
 
     if planet.has_ring:
         render_planet_ring(
