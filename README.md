@@ -2,6 +2,8 @@
 
 This Python project runs a simple ASCII solar system in your Unix terminal.
 
+![Example Solar System](./example.gif)
+
 It's also my first [Boot.dev personal project](https://www.boot.dev/courses/build-personal-project-1), and showcases some of the Python skills I've picked up while following their Backend Developer course.
 > Note: unlike the [guided projects](https://github.com/stars/charliej2005/lists/boot-dev), this project is entirely my own. 
 
@@ -12,6 +14,7 @@ It's also my first [Boot.dev personal project](https://www.boot.dev/courses/buil
 - Animated ASCII planets and stars
 - Vibrant color support made possible with [Rich](https://github.com/Textualize/rich)
 - Dynamically adapts to terminal rescaling
+- Easy CLI exit by pressing the 'q' key during runtime
 
 ---
 
